@@ -1,56 +1,97 @@
-# 🚀 Surf API Testbench
+# 🚀 SurfBench
 
-> A Python-based QA toolkit for testing, benchmarking, and understanding the Surf API.
+> A Python toolkit for testing, benchmarking, and evaluating the Surf API.
 
 ![Python](https://img.shields.io/badge/Python-3.x-blue)
-![Status](https://img.shields.io/badge/Status-Active%20Development-success)
+![Status](https://img.shields.io/badge/Status-v1.0-success)
 ![GitHub](https://img.shields.io/badge/Git-Version%20Controlled-orange)
 
 ---
 
-## 📖 Overview
+# 📖 Overview
 
-This project began with a simple goal:
+SurfBench is an open-source toolkit built while exploring the Surf API.
 
-**"Can I communicate with the Surf API from Python?"**
+Instead of being a simple API client, SurfBench provides a set of developer tools for interacting with, benchmarking, and evaluating the Surf API.
 
-Rather than stopping after the first successful API call, I decided to build something more useful—a toolkit that can be expanded into a complete QA and benchmarking framework.
-
-Instead of treating this as a one-time experiment, the project is being developed incrementally, with each feature tested, documented, and tracked through Git.
+The project was built incrementally through small engineering milestones, with each feature tested, committed, and documented.
 
 ---
 
-## ✨ Current Features
+# ✨ Features
 
-- Interactive Prompt Runner
-- Secure API authentication using `.env`
-- Live Surf API integration
-- Response latency measurement
-- Token usage tracking
-- Automatic JSON result logging
-- Git version control
-- GitHub workflow
+## 🗨️ Interactive Prompt Runner
+
+- Multi-turn conversations
+- Context retention
+- Session logging
+- Token tracking
+- Latency measurement
 
 ---
 
-## 📁 Project Structure
+## 📊 Benchmark Runner
+
+Automatically benchmark the Surf API using a prompt dataset.
+
+Features:
+
+- Runs multiple prompts automatically
+- Measures latency
+- Records token usage
+- Stores responses
+- Generates structured benchmark reports
+
+---
+
+## 📄 Report Generator
+
+Generate human-readable benchmark summaries.
+
+Displays:
+
+- Total requests
+- Success rate
+- Average latency
+- Prompt tokens
+- Completion tokens
+- Total tokens
+
+---
+
+## 💾 Automatic JSON Logging
+
+Every benchmark and conversation is saved as structured JSON for future analysis.
+
+---
+
+# 📁 Project Structure
 
 ```text
 surf-api-testbench/
+
+├── benchmarks/
+│   └── surfbench_*.json
+│
+├── reports/
+│   └── report_*.txt
 │
 ├── results/
-├── venv/
-├── .env
-├── .gitignore
+│   └── session_*.json
+│
 ├── prompt_runner.py
-├── test.py
+├── benchmark_runner.py
+├── report_generator.py
+├── surf_client.py
+├── prompts.json
 ├── requirements.txt
+├── .gitignore
 └── README.md
 ```
 
 ---
 
-## ⚙️ Installation
+# ⚙️ Installation
 
 ```bash
 git clone https://github.com/mrchandu1462-ux/surf-api-testbench.git
@@ -72,160 +113,198 @@ SURF_API_KEY=your_api_key_here
 
 ---
 
-## ▶️ Usage
+# ▶️ Usage
 
-Run:
+## Interactive Prompt Runner
 
 ```bash
 python prompt_runner.py
 ```
 
-Example:
+---
 
-```text
-Enter your prompt:
+## Benchmark Runner
 
-> Explain Bitcoin in simple words.
+```bash
+python benchmark_runner.py
 ```
 
-The application will:
+Reads prompts from:
 
-- Send a live request to the Surf API
-- Measure response latency
-- Display token usage
-- Save the complete result as a JSON file
+```text
+prompts.json
+```
+
+Automatically:
+
+- Sends requests
+- Measures latency
+- Records token usage
+- Saves benchmark report
 
 ---
 
-## 📊 Sample Output
+## Report Generator
+
+```bash
+python report_generator.py
+```
+
+Generates a readable benchmark summary from the latest benchmark report.
+
+---
+
+# 📊 Example Benchmark Output
 
 ```text
-Status Code : 200
+============================================================
+✅ BENCHMARK COMPLETE
+============================================================
 
-Latency : 2.14 sec
+Total Requests      : 10
+Successful          : 10
+Failed              : 0
 
-Prompt Tokens : 398
+Average Latency     : 86.85 sec
 
-Completion Tokens : 87
+Avg Prompt Tokens   : 2400
+Avg Completion Tok. : 236
+Avg Total Tokens    : 4018
 
-Total Tokens : 485
-
-Result saved:
-
-results/2026-07-01_13-09-54.json
+Report saved to:
+benchmarks/surfbench_2026-07-03_22-27-43.json
 ```
 
 ---
 
-## 💾 Automatic Result Logging
+# 📦 Generated Files
 
-Every request is stored as structured JSON.
+## Benchmark Reports
 
-Example:
+```text
+benchmarks/
+
+surfbench_2026-07-03_22-27-43.json
+```
+
+Contains:
+
+- Prompt
+- Response
+- Status Code
+- Latency
+- Token Usage
+- Benchmark Statistics
+
+---
+
+## Session Logs
 
 ```text
 results/
 
-2026-07-01_13-09-54.json
+2026-07-03_15-30-18.json
 ```
 
-Each record contains:
+Contains:
 
-- Timestamp
-- Prompt
-- Response
-- Model
-- Status Code
+- Conversation
+- Session statistics
+- Token usage
 - Latency
-- Token Usage
-
-This creates a growing dataset that can later be used for benchmarking, reporting, and QA analysis.
 
 ---
 
-# 🗺️ Roadmap
+## Text Reports
 
-## ✅ Milestone 1 — Foundation
+```text
+reports/
 
-- [x] Python Environment
-- [x] Surf API Integration
-- [x] Prompt Runner
-- [x] JSON Result Logging
-- [x] GitHub Repository
+report_2026-07-03_22-42-03.txt
+```
 
----
-
-## 🚧 Milestone 2 — Interactive Testing
-
-- [ ] Conversation Mode
-- [ ] Session History
-- [ ] Exit Commands
+Provides a readable benchmark summary.
 
 ---
 
-## 🚧 Milestone 3 — Benchmarking
-
-- [ ] Batch Prompt Testing
-- [ ] Latency Analytics
-- [ ] Token Analytics
-- [ ] Response Comparison
-
----
-
-## 🚧 Milestone 4 — QA Toolkit
-
-- [ ] HTML Reports
-- [ ] CSV Export
-- [ ] Stress Testing
-- [ ] Error Analytics
-- [ ] Benchmark Dashboard
-
----
-
-## 🛠️ Tech Stack
+# 🛠️ Tech Stack
 
 - Python
 - Requests
 - python-dotenv
+- JSON
 - Git
 - GitHub
 - Surf API
 
 ---
 
-## 📈 Development Philosophy
+# 🗺️ Roadmap
 
-This repository is intentionally being built through small, meaningful iterations.
+## ✅ Version 1.0
 
-Each feature follows the same workflow:
-
-```text
-Plan
- ↓
-Build
- ↓
-Test
- ↓
-Commit
- ↓
-Push
-```
-
-The goal is not just to create a working application, but to document the engineering process behind it.
+- Interactive Prompt Runner
+- Conversation Sessions
+- Session Logging
+- Benchmark Runner
+- Benchmark Reports
+- Report Generator
+- Shared Surf API Client
 
 ---
 
-## 👨‍💻 Author
+## 🚀 Future Improvements
+
+- Benchmark Comparison
+- CSV Export
+- HTML Reports
+- Stress Testing
+- Performance Dashboard
+- Response Quality Evaluation
+
+---
+
+# 📈 Development Workflow
+
+Every feature follows the same engineering workflow:
+
+```text
+Plan
+   ↓
+Build
+   ↓
+Test
+   ↓
+Commit
+   ↓
+Push
+```
+
+The goal is to build practical developer tools through small, well-tested iterations.
+
+---
+
+# 👨‍💻 Author
 
 **Chandu Saikam**
 
 GitHub:
+
 https://github.com/mrchandu1462-ux
 
 ---
 
-## ⭐ Project Status
+# ⭐ Current Status
 
-**Active Development**
+**SurfBench v1.0**
 
-This repository is evolving into a practical QA toolkit for testing and benchmarking the Surf API. New capabilities will be added through incremental, well-tested releases.
+A lightweight developer toolkit for testing, benchmarking, and evaluating the Surf API.
+
+Current capabilities include:
+
+- Interactive conversations
+- Automated benchmarking
+- Structured JSON logging
+- Benchmark report generation
+
+Future releases will expand benchmarking, reporting, and evaluation capabilities.
