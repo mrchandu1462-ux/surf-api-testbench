@@ -16,3 +16,17 @@ results/
 
 # Logs
 *.log
+# Generated benchmark reports
+benchmarks/*.json
+
+# Generated prompt runner logs
+results/*.json
+
+# Python cache
+__pycache__/
+
+# Virtual environment
+venv/
+
+# Environment variables
+.env
