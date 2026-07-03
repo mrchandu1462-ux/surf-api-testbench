@@ -69,7 +69,14 @@ def send_request(messages):
 # Save Conversation Session
 # ==================================================
 
-def save_session(messages):
+def save_session(
+    messages,
+    request_count,
+    total_latency,
+    total_prompt_tokens,
+    total_completion_tokens,
+    total_tokens
+):
 
     os.makedirs("results", exist_ok=True)
 
@@ -78,10 +85,26 @@ def save_session(messages):
     filename = f"results/{timestamp}.json"
 
     session = {
-        "timestamp": timestamp,
-        "total_messages": len(messages),
-        "conversation": messages
-    }
+    "session_id": f"SESSION_{timestamp}",
+
+    "timestamp": timestamp,
+
+    "total_messages": len(messages),
+
+    "total_requests": request_count,
+
+    "average_latency_seconds": round(
+        total_latency / request_count, 2
+    ) if request_count else 0,
+
+    "total_prompt_tokens": total_prompt_tokens,
+
+    "total_completion_tokens": total_completion_tokens,
+
+    "total_tokens": total_tokens,
+
+    "conversation": messages
+}
 
     with open(filename, "w", encoding="utf-8") as f:
         json.dump(session, f, indent=4, ensure_ascii=False)
@@ -100,18 +123,40 @@ def main():
 
     messages = []
 
+    request_count = 0
+    total_latency = 0
+
+    total_prompt_tokens = 0
+    total_completion_tokens = 0
+    total_tokens = 0
+
     while True:
 
         prompt = input("You > ").strip()
 
+        # Exit
         if prompt.lower() == "exit":
 
-            if messages:
-                filename = save_session(messages)
+            if request_count > 0:
+
+                filename = save_session(
+                    messages,
+                    request_count,
+                    total_latency,
+                    total_prompt_tokens,
+                    total_completion_tokens,
+                    total_tokens
+                )
+
                 print(f"\n💾 Conversation saved: {filename}")
 
             print("👋 Goodbye!")
             break
+
+        # Ignore empty input
+        if not prompt:
+            print("Please enter a prompt.\n")
+            continue
 
         messages.append({
             "role": "user",
@@ -121,6 +166,18 @@ def main():
         try:
 
             status_code, latency, answer, usage, data = send_request(messages)
+
+            request_count += 1
+            total_latency += latency
+
+            total_prompt_tokens += usage.get("prompt_tokens", 0)
+            total_completion_tokens += usage.get("completion_tokens", 0)
+
+            # Calculate ourselves
+            total_tokens = (
+                total_prompt_tokens +
+                total_completion_tokens
+            )
 
             messages.append({
                 "role": "assistant",
