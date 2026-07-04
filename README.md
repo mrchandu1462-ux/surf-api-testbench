@@ -129,7 +129,6 @@ surf-api-testbench/
 │   └── session_*.json
 │
 ├── prompt_runner.py
-├── prompt_runner_v3.py
 ├── benchmark_runner.py
 ├── report_generator.py
 ├── surf_client.py
@@ -190,7 +189,7 @@ SURF_API_KEY=your_api_key_here
 ## Interactive Prompt Runner
 
 ```bash
-python prompt_runner_v3.py
+python prompt_runner.py
 ```
 
 Supports:

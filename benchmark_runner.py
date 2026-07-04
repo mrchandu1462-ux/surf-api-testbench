@@ -47,7 +47,7 @@ def main():
 
     for index, prompt in enumerate(prompts, start=1):
 
-        print(f"[{index}/{len(prompts)}] Testing...")
+        print(f"[{index}/{len(prompts)}] {prompt}")
 
         messages = [
             {
@@ -77,6 +77,7 @@ def main():
                 "latency_seconds": latency,
                 "usage": usage
             })
+            print(f"   ✓ {latency} sec | {usage.get('total_tokens', 0)} tokens")
 
         except Exception as e:
 
